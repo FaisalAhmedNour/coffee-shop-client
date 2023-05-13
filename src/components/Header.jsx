@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <div>
-            <Link to='/'>Home</Link>
-            <Link to='/add-coffee'>Add Coffee</Link>
-            <Link to='/update-coffee'>Update Coffee</Link>
+        <div className='text-center'>
+            <Link className='btn btn-link' to='/'>Home</Link>
+            <Link className='btn btn-link' to='/add-coffee'>Add Coffee</Link>
         </div>
     );
 };

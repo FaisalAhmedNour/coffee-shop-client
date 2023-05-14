@@ -8,33 +8,35 @@ const CoffeeCard = (props) => {
     // console.log(photo)
 
     const handleDelete = id => {
-        console.log(id)
-        fetch(`http://localhost:5000/coffee/${id}`, {
-            method: 'DELETE',
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if (data.deletedCount) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
+        // console.log(id)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/coffee/${id}`, {
+                    method: 'DELETE',
                 })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data)
+                        if (data.deletedCount) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+
             }
         })
+
     }
 
     return (
@@ -46,7 +48,7 @@ const CoffeeCard = (props) => {
                 <p className="text-md"><span className='font-semibold'>Category:</span> {category}</p>
             </div>
             <div className="flex flex-col justify-center items-center gap-3">
-                <Link className="btn btn-xs mr-3 btn-success">View</Link>
+                <Link to={`/coffee-details/${_id}`} className="btn btn-xs mr-3 btn-success">View</Link>
                 <Link to={`/update-coffee/${_id}`} className="btn btn-xs mr-3">Edit</Link>
                 <Link onClick={() => handleDelete(_id)} className="btn btn-xs mr-3 btn-error">Delete</Link>
             </div>
